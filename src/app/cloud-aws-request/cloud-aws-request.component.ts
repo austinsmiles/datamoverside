@@ -11,6 +11,9 @@ export class CloudAwsRequestComponent implements OnInit{
   
   }
   ngOnInit(): void {
+    const aws_req = this.dmbackendService.getBackendRequest()
     this.cloud_aws_requests = this.dmbackendService.getCloudAwsRequests();
+    //this.cloud_aws_requests = this.dmbackendService.getBackendRequest();
+    //this.cloud_aws_requests = aws_req.subscribe();
   }
 }

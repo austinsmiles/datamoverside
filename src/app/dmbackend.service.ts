@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
-
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
+
+@Injectable()
 export class DmbackendService {
   contacts = [
     {id: 1, name: "Contact 001", description: "Contact 001 des", email: "c001@email.com"},
@@ -23,12 +27,16 @@ export class DmbackendService {
     {id: "rq-03", rq_name: "dataset-municipality", rq_status:"PENDING"}
   ];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
   public getDataSources():Array<{id, ds_name, ds_type, ds_path}>{
     return this.datasources;
   }
   public getCloudAwsRequests(): Array<{id, rq_name, rq_status}>{
     return this.cloud_aws_requests
+  }
+
+  public getBackendRequest(){
+    return this.http.get<DmbackendService>('http://localhost:5000/get_aws');
   }
   
 }
